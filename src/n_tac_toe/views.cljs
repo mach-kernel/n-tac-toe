@@ -5,7 +5,7 @@
    [n-tac-toe.events :as events]
    [n-tac-toe.routes :as routes]
    [n-tac-toe.subs :as subs]
-   ))
+   [n-tac-toe.components.board :refer [board]]))
 
 
 ;; home
@@ -16,11 +16,11 @@
      [:h1
       {:class (styles/level1)}
       (str "Hello from " @name ". This is the Home Page.")]
+     [board 3]
 
      [:div
       [:a {:on-click #(re-frame/dispatch [::events/navigate :about])}
-       "go to About Page"]]
-     ]))
+       "go to About Page"]]]))
 
 (defmethod routes/panels :home-panel [] [home-panel])
 
