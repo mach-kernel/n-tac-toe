@@ -89,7 +89,22 @@
   ;; move
   (let [almost (->Board [[\x \o \o]
                          [\o \x \o]
-                         [\o \o nil]])]
+                         [\o \o nil]])
+        diag-fwd (->Board [[\x \o \o]
+                           [\o \x \o]
+                           [\o \o \x]])
+        diag-bwd (->Board [[\x \o \o]
+                           [\o \o \x]
+                           [\o \o \x]])
+        almost-meta (->MetaBoard [[diag-fwd diag-bwd diag-bwd]
+                                  [diag-bwd diag-fwd diag-bwd]
+                                  [diag-bwd diag-bwd almost]])]
     {:almost-win (win? almost)
-     :won (win? 
-           (move almost \x 2 2))}))
+     :won (win?
+           (move almost \x 2 2))
+     :almost-win-meta (win? almost-meta)
+     :won-meta (let [last (get-in (:rows almost-meta)
+                                  [2 2])]
+                 (win?
+                  (move almost-meta
+                        (move last \x 2 2) 2 2)))}))
