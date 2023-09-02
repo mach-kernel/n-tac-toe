@@ -5,6 +5,7 @@
    [n-tac-toe.events :as events]
    [n-tac-toe.routes :as routes]
    [n-tac-toe.subs :as subs]
+   [n-tac-toe.game :as game]
    [n-tac-toe.components.board :refer [board]]))
 
 
@@ -16,8 +17,7 @@
      [:h1
       {:class (styles/level1)}
       (str "Hello from " @name ". This is the Home Page.")]
-     [board 3]
-
+     [board (game/new-game 3)]
      [:div
       [:a {:on-click #(re-frame/dispatch [::events/navigate :about])}
        "go to About Page"]]]))

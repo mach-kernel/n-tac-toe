@@ -1,5 +1,7 @@
 (ns n-tac-toe.game
-  (:require [cljs.pprint :as pprint]))
+  (:require 
+   [clojure.walk :as walk]
+   [cljs.pprint :as pprint]))
 
 (defprotocol TicTacToe
   "The meta tic-tac-toe game. There are two types of boards:
@@ -15,6 +17,26 @@
 
 (defrecord MetaBoard
            [rows])
+
+(defn new-game
+  "Makes an empty game"
+  [n]
+  (let [n2 (Math/pow n 2)]
+    (->MetaBoard (->>
+                  ;; make nxn nils
+                  (repeat nil)
+                  (take n2)
+                  ;; partition into a board
+                  (partition-all n)
+                  repeat
+                  ;; using a stream of empty boards, take nxn empty boards
+                  (take n2)
+                  (partition-all n)
+                  ;; convert everything into vecs
+                  (walk/prewalk
+                   #(if (sequential? %)
+                      (vec %)
+                      %))))))
 
 (extend-type Board
   TicTacToe
