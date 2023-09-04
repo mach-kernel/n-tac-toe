@@ -1,13 +1,8 @@
 (ns n-tac-toe.game
   (:require
    [clojure.walk :as walk]
+   [clojure.core.match :as match]
    [cljs.pprint :as pprint]))
-
-;; utils
-
-(defn- collect-diag
-  [i row]
-  (first (drop i row)))
 
 ;; game
 
@@ -17,9 +12,14 @@
    A nxn board of regular tic-tac-toe boards (where each space is a Board)
    A nxn board is won by winning each game for a space for either X or O, e.g.
    X wins all spaces in a row, or diagonally, etc."
-  (move [this c y x])
-  (score [this])
-  (win? [this]))
+  (move
+    [this c y x])
+  (suggest-move
+    [this c])
+  (score
+    [this])
+  (win?
+    [this]))
 
 (defrecord Board
            [rows])
@@ -51,24 +51,57 @@
   TicTacToe
   (move [{:keys [rows]} c y x]
     (->Board (assoc-in rows [y x] c)))
+  (suggest-move
+    [{:keys [rows] :as board} c]
+    (let [n (count rows)
+          scores (->> (score board)
+                      (map #(select-keys % [c]))
+                      (filter not-empty)
+                      (sort-by (comp max vals) >))
+          p-first-nil #(when (nil? %2)
+                         %1)]
+      (loop [[s & rest] scores]
+        (if-let [move (match/match [(meta s)]
+                        [{:dir :fwd-diag}] (when-let [yx (->> (range n)
+                                                              (map get rows)
+                                                              (keep-indexed p-first-nil)
+                                                              first)]
+                                             [yx yx])
+                        [{:dir :rev-diag}] (when-let [yx (->> (range n)
+                                                              (map get (reverse rows))
+                                                              (keep-indexed p-first-nil)
+                                                              first)]
+                                             [yx yx])
+                        [{:dir :col :n x}] (when-let [y (->> rows
+                                                             (map #(get % x))
+                                                             (keep-indexed p-first-nil)
+                                                             first)]
+                                             [y x])
+                        [{:dir :row :n y}] (when-let [x (->> (get rows y)
+                                                             (keep-indexed p-first-nil)
+                                                             first)]
+                                             [y x])
+                        :else nil)]
+         move
+         (recur rest)))))
   (score [{:keys [rows]}]
-    (let [fwd-diag (with-meta
-                     (->> rows
-                          (map-indexed collect-diag)
+    (let [n (count rows)
+          fwd-diag (with-meta
+                     (->> (range n)
+                          (map get rows)
                           frequencies)
                      {:dir :fwd-diag})
           rev-diag (with-meta
-                     (->> rows
-                          reverse
-                          (map-indexed collect-diag)
+                     (->> (range n)
+                          (map get (reverse rows))
                           frequencies)
                      {:dir :rev-diag})
           row-scores (map-indexed #(with-meta
                                      (frequencies %2)
                                      {:dir :row
                                       :n %1}) rows)
-          col-scores (->> (range (count rows))
-                          (map identity rows)
+          col-scores (->> (range n)
+                          (map #(map get rows (repeat n %)))
                           (map-indexed #(with-meta
                                           (frequencies %2)
                                           {:dir :col
@@ -94,12 +127,10 @@
 (comment
   (require '[clojure.pprint :as pprint])
 
-  (let [diag-fwd (->Board [[\x \o \o]
+  (let [another-board (->Board [[nil \o nil]
                            [\o \x \o]
-                           [\o \o \x]])]
-    [(score diag-fwd)
-     (win? diag-fwd)
-     (meta (last (score diag-fwd)))])
+                           [\o \o nil]])]
+    (suggest-move another-board \o))
 
   (let [almost (->Board [[\x \o \o]
                          [\o \x \o]
