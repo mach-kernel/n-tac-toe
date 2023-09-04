@@ -1,7 +1,15 @@
 (ns n-tac-toe.game
-  (:require 
+  (:require
    [clojure.walk :as walk]
    [cljs.pprint :as pprint]))
+
+;; utils
+
+(defn- collect-diag
+  [i row]
+  (first (drop i row)))
+
+;; game
 
 (defprotocol TicTacToe
   "The meta tic-tac-toe game. There are two types of boards:
@@ -10,6 +18,7 @@
    A nxn board is won by winning each game for a space for either X or O, e.g.
    X wins all spaces in a row, or diagonally, etc."
   (move [this c y x])
+  (score [this])
   (win? [this]))
 
 (defrecord Board
@@ -35,44 +44,33 @@
                   ;; convert everything into vecs
                   (walk/prewalk
                    #(if (sequential? %)
-                      (vec %)
+                      (into [] %)
                       %))))))
 
 (extend-type Board
   TicTacToe
   (move [{:keys [rows]} c y x]
     (->Board (assoc-in rows [y x] c)))
-  (win? [{:keys [rows]}]
-    (letfn [(same-or-nil
-              [a b]
-              (when (= a b)
-                b))
-            (collect-diag
-              [i row]
-              (first (drop i row)))
-            (collect-col
-              [i]
-              (map #(get % i) rows))]
-      (or
-      ;; diagonally fwd
-       (->> rows
-            (map-indexed collect-diag)
-            (reduce same-or-nil))
-      ;; diagonally rev
-       (->> rows
-            reverse
-            (map-indexed collect-diag)
-            (reduce same-or-nil))
-      ;; win by row
-       (->> rows
-            (map #(reduce same-or-nil %))
-            (filter identity)
-            first)
-      ;; win by column
-       (->> (range (count rows))
-            (map #(reduce same-or-nil (collect-col %)))
-            (filter identity)
-            first)))))
+  (score [{:keys [rows]}]
+    (let [fwd-diag (->> rows
+                        (map-indexed collect-diag)
+                        frequencies)
+          rev-diag (->> rows
+                        reverse
+                        (map-indexed collect-diag)
+                        frequencies)
+          row-scores (map frequencies rows)
+          col-scores (->> (range (count rows))
+                          (map identity rows)
+                          (map frequencies))]
+      (->> (concat row-scores col-scores)
+           (cons fwd-diag)
+           (cons rev-diag))))
+  (win? [{:keys [rows] :as board}]
+    (->> (score board)
+         (mapcat vals)
+         (filter #{(count rows)})
+         first)))
 
 (extend-type MetaBoard
   TicTacToe
@@ -83,6 +81,12 @@
 
 (comment
   (require '[clojure.pprint :as pprint])
+
+  (let [diag-fwd (->Board [[\x \o \o]
+                           [\o \x \o]
+                           [\o \o \x]])]
+    [(score diag-fwd)
+     (win? diag-fwd)])
 
   ;; win states
   (let [{:keys [diag-bwd diag-fwd] :as states} {:diag-fwd (->Board [[\x \o \o]

@@ -20,13 +20,16 @@
               [:td (->> cells
                         (map #(cons :tr %))
                         (cons :table))]
-              cells))]
+              cells))
+          (delazy
+           [maybe-seq]
+           (if (sequential? maybe-seq)
+             (into [] maybe-seq)
+             maybe-seq))]
     ;; cells of tables into a table with rows of table cells
-    (let [table (cons :table (->> rows
-                                  (walk/postwalk buttonify)
-                                  (walk/prewalk tableify)
-                                  (map #(cons :tr %))))]
-      (walk/prewalk #(if (sequential? %)
-                       (into [] %)
-                       %)
-                    table))))
+    (->> rows
+         (walk/postwalk buttonify)
+         (walk/prewalk tableify)
+         (map #(cons :tr %))
+         (cons :table)
+         (walk/prewalk delazy))))
