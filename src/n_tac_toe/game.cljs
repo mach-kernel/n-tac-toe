@@ -52,24 +52,34 @@
   (move [{:keys [rows]} c y x]
     (->Board (assoc-in rows [y x] c)))
   (score [{:keys [rows]}]
-    (let [fwd-diag (->> rows
-                        (map-indexed collect-diag)
-                        frequencies)
-          rev-diag (->> rows
-                        reverse
-                        (map-indexed collect-diag)
-                        frequencies)
-          row-scores (map frequencies rows)
+    (let [fwd-diag (with-meta
+                     (->> rows
+                          (map-indexed collect-diag)
+                          frequencies)
+                     {:dir :fwd-diag})
+          rev-diag (with-meta
+                     (->> rows
+                          reverse
+                          (map-indexed collect-diag)
+                          frequencies)
+                     {:dir :rev-diag})
+          row-scores (map-indexed #(with-meta
+                                     (frequencies %2)
+                                     {:dir :row
+                                      :n %1}) rows)
           col-scores (->> (range (count rows))
                           (map identity rows)
-                          (map frequencies))]
+                          (map-indexed #(with-meta
+                                          (frequencies %2)
+                                          {:dir :col
+                                           :n %1})))]
       (->> (concat row-scores col-scores)
            (cons fwd-diag)
            (cons rev-diag))))
   (win? [{:keys [rows] :as board}]
     (->> (score board)
-         (mapcat vals)
-         (filter #{(count rows)})
+         (mapcat seq)
+         (filter (comp #{(count rows)} last))
          first)))
 
 (extend-type MetaBoard
@@ -77,7 +87,9 @@
   (move [{:keys [rows]} ^Board board y x]
     (->MetaBoard (assoc-in rows [y x] board)))
   (win? [{:keys [rows]}]
-    (win? (->Board (map (partial map win?) rows)))))
+    (win? (->Board (map (partial map win?) rows))))
+  (score [{:keys [rows]}]
+    (mapcat #(mapcat score %) rows)))
 
 (comment
   (require '[clojure.pprint :as pprint])
@@ -86,7 +98,22 @@
                            [\o \x \o]
                            [\o \o \x]])]
     [(score diag-fwd)
-     (win? diag-fwd)])
+     (win? diag-fwd)
+     (meta (last (score diag-fwd)))])
+
+  (let [almost (->Board [[\x \o \o]
+                         [\o \x \o]
+                         [\o \o nil]])
+        diag-fwd (->Board [[\x \o \o]
+                           [\o \x \o]
+                           [\o \o \x]])
+        diag-bwd (->Board [[\x \o \o]
+                           [\o \o \x]
+                           [\o \o \x]])
+        almost-meta (->MetaBoard [[diag-fwd diag-bwd diag-bwd]
+                                  [diag-bwd diag-fwd diag-bwd]
+                                  [diag-bwd diag-bwd almost]])]
+    (score almost-meta))
 
   ;; win states
   (let [{:keys [diag-bwd diag-fwd] :as states} {:diag-fwd (->Board [[\x \o \o]
