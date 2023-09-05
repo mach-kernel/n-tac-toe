@@ -40,6 +40,7 @@
                   repeat
                   ;; using a stream of empty boards, take nxn empty boards
                   (take n2)
+                  (map ->Board)
                   (partition-all n)
                   ;; convert everything into vecs
                   (walk/prewalk
@@ -49,8 +50,10 @@
 
 (extend-type Board
   TicTacToe
-  (move [{:keys [rows]} c y x]
-    (->Board (assoc-in rows [y x] c)))
+  (move [{:keys [rows] :as board} c y x]
+    (if (< (max y x) (count rows))
+      (->Board (assoc-in rows [y x] c))
+      board))
   (suggest-move
     [{:keys [rows] :as board} c]
     (let [n (count rows)
@@ -82,8 +85,8 @@
                                                              first)]
                                              [y x])
                         :else nil)]
-         move
-         (recur rest)))))
+          move
+          (recur rest)))))
   (score [{:keys [rows]}]
     (let [n (count rows)
           fwd-diag (with-meta
@@ -128,9 +131,9 @@
   (require '[clojure.pprint :as pprint])
 
   (let [another-board (->Board [[nil \o nil]
-                           [\o \x \o]
-                           [\o \o nil]])]
-    (suggest-move another-board \o))
+                                [\o \x \o]
+                                [\o \o nil]])]
+    (move another-board \x 2 2))
 
   (let [almost (->Board [[\x \o \o]
                          [\o \x \o]
