@@ -84,7 +84,8 @@
                                                              (keep-indexed p-first-nil)
                                                              first)]
                                              [y x])
-                        :else nil)]
+                        :else [(rand-int n)
+                               (rand-int n)])]
           move
           (recur rest)))))
   (score [{:keys [rows]}]

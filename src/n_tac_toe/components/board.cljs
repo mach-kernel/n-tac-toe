@@ -1,6 +1,8 @@
 (ns n-tac-toe.components.board
   (:require [clojure.walk :as walk]
-            [n-tac-toe.game :as game :refer [TicTacToe]]))
+            [re-frame.core :as re-frame]
+            [n-tac-toe.game :as game :refer [TicTacToe]]
+            [n-tac-toe.events :as events]))
 
 (defn- make-buttons-and-coords
   "Makes buttons to play game, annotates coord metadata
@@ -9,17 +11,20 @@
   (let [n (count rows)
         coords (for [y1 (range n)
                      x1 (range n)]
-                 [y1 x1])]
+                 [y1 x1])
+        {:keys [coord]} (meta board)
+        [yb xb] coord]
     (->> rows
          (mapcat identity)
          (interleave coords)
          (partition-all 2)
-         (mapv #(let [[coord cell] %
-                      coord-meta {:coord coord}
+         (mapv #(let [[[y x] cell] %
+                      coord-meta {:coord [y x]}
                       cell (if (satisfies? TicTacToe cell)
                              (make-buttons-and-coords (with-meta cell coord-meta))
                              [:td [:button
-                                   {:on-click (fn [] (js/alert (str coord (meta board))))}
+                                   {:on-click (fn []
+                                                (re-frame/dispatch [::events/play \x yb xb y x]))}
                                    (or cell "empty")]])]
                   (with-meta cell coord-meta)))
          (partition-all n)
