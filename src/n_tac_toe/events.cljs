@@ -32,7 +32,8 @@
     
     {:db (assoc db
                 :game (game/move game new-board yb xb)
-                :turn (get next-play c))
+                :turn (get next-play c)
+                :allowed [y x])
      :fx [(when (= turn \x)
             [:dispatch [::cpu-play y x]])]})))
 

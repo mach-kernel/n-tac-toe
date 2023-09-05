@@ -2,7 +2,8 @@
   (:require [clojure.walk :as walk]
             [re-frame.core :as re-frame]
             [n-tac-toe.game :as game :refer [TicTacToe]]
-            [n-tac-toe.events :as events]))
+            [n-tac-toe.events :as events]
+            [n-tac-toe.subs :as subs]))
 
 (defn- make-buttons-and-coords
   "Makes buttons to play game, annotates coord metadata
@@ -13,7 +14,9 @@
                      x1 (range n)]
                  [y1 x1])
         {:keys [coord]} (meta board)
-        [yb xb] coord]
+        [yb xb] coord
+        allowed (re-frame/subscribe [::subs/allowed])
+        [ya xa] @allowed]
     (->> rows
          (mapcat identity)
          (interleave coords)
@@ -24,7 +27,9 @@
                              (make-buttons-and-coords (with-meta cell coord-meta))
                              [:td [:button
                                    {:on-click (fn []
-                                                (re-frame/dispatch [::events/play \x yb xb y x]))}
+                                                (re-frame/dispatch [::events/play \x yb xb y x]))
+                                    :disabled (not (and (= yb ya)
+                                                        (= xa xb)))}
                                    (or cell "empty")]])]
                   (with-meta cell coord-meta)))
          (partition-all n)
