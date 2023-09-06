@@ -25,11 +25,11 @@
          (partition-all 2)
          (mapv #(let [[[y x] cell] %
                       coord-meta {:coord [y x]}
-                      disabled (or 
+                      disabled (or
                                 won
                                 (not (nil? cell))
                                 (not (and (= yb ya)
-                                             (= xa xb))))
+                                          (= xa xb))))
                       cell (if (satisfies? TicTacToe cell)
                              (make-buttons-and-coords (with-meta cell coord-meta))
                              [:td
@@ -47,7 +47,7 @@
                                         (when (and (not-empty won)
                                                    (= cell won))
                                           "bg-washed-green "))}
-                               [:p {:class "b h-2 f4 lh-copy"} (or cell "empty")]]])]
+                               [:p {:class "b ma3 f4 lh-copy"} (or cell [:span {:class "pa3"}])]]])]
                   (with-meta cell coord-meta)))
          (partition-all n)
          (mapv vec))))
@@ -76,8 +76,8 @@
               maybe-seq))]
         ;; cells of tables into a table with rows of table cells
     [:div {:class "h-100 w-80 center"} (->> (make-buttons-and-coords board)
-                               (walk/prewalk tableify)
-                               (map #(cons :tr %))
+                                            (walk/prewalk tableify)
+                                            (map #(cons :tr %))
 
-                               (concat [:table {:class "h-100 w-100"}])
-                               (walk/prewalk delazy))]))
+                                            (concat [:table {:class "h-100 w-100"}])
+                                            (walk/prewalk delazy))]))
