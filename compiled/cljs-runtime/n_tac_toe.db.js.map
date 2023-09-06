@@ -1,1 +1,0 @@
-{"version":3,"sources":["n_tac_toe/db.cljs"],"mappings":";AAEA,0BAAA,2CAAA,qDAAA,1HAAKA","names":["n-tac-toe.db/default-db"],"sourcesContent":["(ns n-tac-toe.db)\n\n(def default-db\n  {:name \"re-frame\"})\n"]}
