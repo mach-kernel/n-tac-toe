@@ -1,0 +1,600 @@
+(board (game/new-game 3))
+:repl/exception!
+; 
+; Execution error (Error) at (<cljs repl>:1).
+; :td is not ISeqable
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+#'n-tac-toe.components.board/board
+clj꞉n-tac-toe.components.board꞉> 
+(board (game/new-game 3))
+:repl/exception!
+; 
+; Execution error (Error) at (<cljs repl>:1).
+; :td is not ISeqable
+clj꞉n-tac-toe.components.board꞉> 
+(make-buttons-and-coords (game/new-game 3))
+[[[:td [:button :rows]]]]
+clj꞉n-tac-toe.components.board꞉> 
+(make-buttons-and-coords (game/new-game 3))
+[[[:td [:button :rows]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+(make-buttons-and-coords (game/new-game 3))
+[[[:td [:button :rows]]]]
+clj꞉n-tac-toe.components.board꞉> 
+(make-buttons-and-coords (:rows (game/new-game 3)))
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+(make-buttons-and-coords (:rows (game/new-game 3)))
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button :rows]]]]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+; ------ REPL Error while processing ---------------------------------------------
+; (cljs.core/load-file "/Users/dstancu/Workspace/dstancu/n-tac-toe/src/n_tac_toe/components/board.cljs")
+; ------ REPL Error while processing ---------------------------------------------
+; (ns n-tac-toe.components.board
+;   (:require [clojure.walk :as walk]
+;             [n-tac-toe.game :as game :refer [TicTacToe]]))
+; no source by id: [:shadow.build.classpath/resource "n_tac_toe/components/board.cljs"]
+; {:id [:shadow.build.classpath/resource "n_tac_toe/components/board.cljs"]}
+; ExceptionInfo: no source by id: [:shadow.build.classpath/resource "n_tac_toe/components/board.cljs"]
+; 	shadow.build.data/get-source-by-id (data.clj:175)
+; 	shadow.build.data/get-source-by-id (data.clj:172)
+; 	shadow.build.compiler/remove-dead-js-deps/remove-fn--13571/fn--13572 (compiler.clj:1244)
+; 	clojure.core/complement/fn--5737 (core.clj:1455)
+; 	clojure.core/filter/fn--5962 (core.clj:2834)
+; 	clojure.lang.LazySeq.sval (LazySeq.java:42)
+; 	clojure.lang.LazySeq.seq (LazySeq.java:51)
+; 	clojure.lang.ChunkedCons.chunkedNext (ChunkedCons.java:59)
+; 	clojure.core/chunk-next (core.clj:710)
+; 	clojure.core.protocols/fn--8244 (protocols.clj:137)
+; 	clojure.core.protocols/fn--8244 (protocols.clj:124)
+; 	clojure.core.protocols/fn--8204/G--8199--8213 (protocols.clj:19)
+; 	clojure.core.protocols/seq-reduce (protocols.clj:31)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8178/G--8173--8191 (protocols.clj:13)
+; 	clojure.core/reduce (core.clj:6886)
+; 	clojure.core/into (core.clj:6958)
+; 	clojure.core/into (core.clj:6950)
+; 	shadow.build.compiler/remove-dead-js-deps/remove-fn--13571 (compiler.clj:1246)
+; 	clojure.core/update (core.clj:6231)
+; 	clojure.core/update (core.clj:6223)
+; 	shadow.build.compiler/remove-dead-js-deps/fn--13576/fn--13577 (compiler.clj:1252)
+; 	clojure.core/map/fn--5935 (core.clj:2770)
+; 	clojure.lang.LazySeq.sval (LazySeq.java:42)
+; 	clojure.lang.LazySeq.seq (LazySeq.java:51)
+; 	clojure.lang.RT.seq (RT.java:535)
+; 	clojure.core/seq--5467 (core.clj:139)
+; 	clojure.core.protocols/seq-reduce (protocols.clj:24)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8178/G--8173--8191 (protocols.clj:13)
+; 	clojure.core/reduce (core.clj:6886)
+; 	clojure.core/into (core.clj:6958)
+; 	clojure.core/into (core.clj:6950)
+; 	shadow.build.compiler/remove-dead-js-deps/fn--13576 (compiler.clj:1253)
+; 	clojure.core/update (core.clj:6231)
+; 	clojure.core/update (core.clj:6223)
+; 	shadow.build.compiler/remove-dead-js-deps (compiler.clj:1250)
+; 	shadow.build.compiler/remove-dead-js-deps (compiler.clj:1239)
+; 	shadow.build.compiler/compile-all (compiler.clj:1497)
+; 	shadow.build.compiler/compile-all (compiler.clj:1349)
+; 	shadow.build.api/compile-sources (api.clj:261)
+; 	shadow.build.api/compile-sources (api.clj:253)
+; 	shadow.build.api/compile-sources (api.clj:265)
+; 	shadow.build.api/compile-sources (api.clj:253)
+; 	shadow.cljs.repl/repl-ns (repl.clj:365)
+; 	shadow.cljs.repl/repl-ns (repl.clj:345)
+; 	shadow.cljs.repl/process-read-result (repl.clj:530)
+; 	shadow.cljs.repl/process-read-result (repl.clj:510)
+; 	shadow.cljs.repl/process-input (repl.clj:673)
+; 	shadow.cljs.repl/process-input (repl.clj:651)
+; 	shadow.cljs.repl/repl-load-file* (repl.clj:307)
+; 	shadow.cljs.repl/repl-load-file* (repl.clj:285)
+; 	shadow.cljs.repl/repl-load-file (repl.clj:343)
+; 	shadow.cljs.repl/repl-load-file (repl.clj:341)
+; 	shadow.cljs.repl/process-read-result (repl.clj:530)
+; 	shadow.cljs.repl/process-read-result (repl.clj:510)
+; 	shadow.cljs.repl/process-input (repl.clj:673)
+; 	shadow.cljs.repl/process-input (repl.clj:651)
+; 	shadow.cljs.devtools.server.worker.impl/fn--15445 (impl.clj:698)
+; 	shadow.cljs.devtools.server.worker.impl/fn--15445 (impl.clj:688)
+; 	clojure.lang.MultiFn.invoke (MultiFn.java:234)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119/fn--15120/fn--15128 (util.clj:283)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119/fn--15120 (util.clj:282)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119 (util.clj:255)
+; 	java.lang.Thread.run (Thread.java:1589)
+; 
+nil
+clj꞉n-tac-toe.components.board꞉> 
+nil
+; ------ REPL Error while processing ---------------------------------------------
+; (if (instance? game/TicTacToe cell)
+;                              (assoc cell :rows (make-buttons-and-coords (:rows cell))))
+; no source by provide: n-tac-toe.components.board
+; {:provide n-tac-toe.components.board}
+; ExceptionInfo: no source by provide: n-tac-toe.components.board
+; 	shadow.build.data/get-source-id-by-provide (data.clj:192)
+; 	shadow.build.data/get-source-id-by-provide (data.clj:187)
+; 	shadow.build.data/get-source-by-provide (data.clj:195)
+; 	shadow.build.data/get-source-by-provide (data.clj:194)
+; 	shadow.cljs.repl/repl-compile/fn--14919/fn--14920 (repl.clj:472)
+; 	shadow.cljs.repl/repl-compile/fn--14919 (repl.clj:448)
+; 	shadow.cljs.repl/repl-compile (repl.clj:446)
+; 	shadow.cljs.repl/repl-compile (repl.clj:443)
+; 	shadow.cljs.repl/process-read-result (repl.clj:534)
+; 	shadow.cljs.repl/process-read-result (repl.clj:510)
+; 	shadow.cljs.repl/process-input (repl.clj:673)
+; 	shadow.cljs.repl/process-input (repl.clj:651)
+; 	shadow.cljs.devtools.server.worker.impl/fn--15445 (impl.clj:698)
+; 	shadow.cljs.devtools.server.worker.impl/fn--15445 (impl.clj:688)
+; 	clojure.lang.MultiFn.invoke (MultiFn.java:234)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119/fn--15120/fn--15128 (util.clj:283)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119/fn--15120 (util.clj:282)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119 (util.clj:255)
+; 	java.lang.Thread.run (Thread.java:1589)
+; 
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+; ------ REPL Error while processing ---------------------------------------------
+; (cljs.core/load-file "/Users/dstancu/Workspace/dstancu/n-tac-toe/src/n_tac_toe/components/board.cljs")
+; ------ REPL Error while processing ---------------------------------------------
+; (ns n-tac-toe.components.board
+;   (:require [clojure.walk :as walk]
+;             [n-tac-toe.game :as game :refer [TicTacToe]]))
+; no source by id: [:shadow.build.classpath/resource "n_tac_toe/components/board.cljs"]
+; {:id [:shadow.build.classpath/resource "n_tac_toe/components/board.cljs"]}
+; ExceptionInfo: no source by id: [:shadow.build.classpath/resource "n_tac_toe/components/board.cljs"]
+; 	shadow.build.data/get-source-by-id (data.clj:175)
+; 	shadow.build.data/get-source-by-id (data.clj:172)
+; 	shadow.build.compiler/remove-dead-js-deps/remove-fn--13571/fn--13572 (compiler.clj:1244)
+; 	clojure.core/complement/fn--5737 (core.clj:1455)
+; 	clojure.core/filter/fn--5962 (core.clj:2834)
+; 	clojure.lang.LazySeq.sval (LazySeq.java:42)
+; 	clojure.lang.LazySeq.seq (LazySeq.java:51)
+; 	clojure.lang.ChunkedCons.chunkedNext (ChunkedCons.java:59)
+; 	clojure.core/chunk-next (core.clj:710)
+; 	clojure.core.protocols/fn--8244 (protocols.clj:137)
+; 	clojure.core.protocols/fn--8244 (protocols.clj:124)
+; 	clojure.core.protocols/fn--8204/G--8199--8213 (protocols.clj:19)
+; 	clojure.core.protocols/seq-reduce (protocols.clj:31)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8178/G--8173--8191 (protocols.clj:13)
+; 	clojure.core/reduce (core.clj:6886)
+; 	clojure.core/into (core.clj:6958)
+; 	clojure.core/into (core.clj:6950)
+; 	shadow.build.compiler/remove-dead-js-deps/remove-fn--13571 (compiler.clj:1246)
+; 	clojure.core/update (core.clj:6231)
+; 	clojure.core/update (core.clj:6223)
+; 	shadow.build.compiler/remove-dead-js-deps/fn--13576/fn--13577 (compiler.clj:1252)
+; 	clojure.core/map/fn--5935 (core.clj:2770)
+; 	clojure.lang.LazySeq.sval (LazySeq.java:42)
+; 	clojure.lang.LazySeq.seq (LazySeq.java:51)
+; 	clojure.lang.RT.seq (RT.java:535)
+; 	clojure.core/seq--5467 (core.clj:139)
+; 	clojure.core.protocols/seq-reduce (protocols.clj:24)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8236 (protocols.clj:75)
+; 	clojure.core.protocols/fn--8178/G--8173--8191 (protocols.clj:13)
+; 	clojure.core/reduce (core.clj:6886)
+; 	clojure.core/into (core.clj:6958)
+; 	clojure.core/into (core.clj:6950)
+; 	shadow.build.compiler/remove-dead-js-deps/fn--13576 (compiler.clj:1253)
+; 	clojure.core/update (core.clj:6231)
+; 	clojure.core/update (core.clj:6223)
+; 	shadow.build.compiler/remove-dead-js-deps (compiler.clj:1250)
+; 	shadow.build.compiler/remove-dead-js-deps (compiler.clj:1239)
+; 	shadow.build.compiler/compile-all (compiler.clj:1497)
+; 	shadow.build.compiler/compile-all (compiler.clj:1349)
+; 	shadow.build.api/compile-sources (api.clj:261)
+; 	shadow.build.api/compile-sources (api.clj:253)
+; 	shadow.build.api/compile-sources (api.clj:265)
+; 	shadow.build.api/compile-sources (api.clj:253)
+; 	shadow.cljs.repl/repl-ns (repl.clj:365)
+; 	shadow.cljs.repl/repl-ns (repl.clj:345)
+; 	shadow.cljs.repl/process-read-result (repl.clj:530)
+; 	shadow.cljs.repl/process-read-result (repl.clj:510)
+; 	shadow.cljs.repl/process-input (repl.clj:673)
+; 	shadow.cljs.repl/process-input (repl.clj:651)
+; 	shadow.cljs.repl/repl-load-file* (repl.clj:307)
+; 	shadow.cljs.repl/repl-load-file* (repl.clj:285)
+; 	shadow.cljs.repl/repl-load-file (repl.clj:343)
+; 	shadow.cljs.repl/repl-load-file (repl.clj:341)
+; 	shadow.cljs.repl/process-read-result (repl.clj:530)
+; 	shadow.cljs.repl/process-read-result (repl.clj:510)
+; 	shadow.cljs.repl/process-input (repl.clj:673)
+; 	shadow.cljs.repl/process-input (repl.clj:651)
+; 	shadow.cljs.devtools.server.worker.impl/fn--15445 (impl.clj:698)
+; 	shadow.cljs.devtools.server.worker.impl/fn--15445 (impl.clj:688)
+; 	clojure.lang.MultiFn.invoke (MultiFn.java:234)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119/fn--15120/fn--15128 (util.clj:283)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119/fn--15120 (util.clj:282)
+; 	shadow.cljs.devtools.server.util/server-thread/fn--15119 (util.clj:255)
+; 	java.lang.Thread.run (Thread.java:1589)
+; 
+nil
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+[[[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]
+ [[:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+  [:td [:button [[nil nil nil] [nil nil nil] [nil nil nil]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+([[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]])
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+true
+clj꞉n-tac-toe.components.board꞉> 
+[[[[nil nil nil] [nil nil nil] [nil nil nil]]
+  [[nil nil nil] [nil nil nil] [nil nil nil]]
+  [[nil nil nil] [nil nil nil] [nil nil nil]]]
+ [[[nil nil nil] [nil nil nil] [nil nil nil]]
+  [[nil nil nil] [nil nil nil] [nil nil nil]]
+  [[nil nil nil] [nil nil nil] [nil nil nil]]]
+ [[[nil nil nil] [nil nil nil] [nil nil nil]]
+  [[nil nil nil] [nil nil nil] [nil nil nil]]
+  [[nil nil nil] [nil nil nil] [nil nil nil]]]]
+clj꞉n-tac-toe.components.board꞉> 
+(nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ nil
+ ...)
+clj꞉n-tac-toe.components.board꞉> 
+9
+clj꞉n-tac-toe.components.board꞉> 
+([[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]]
+ [[nil nil nil] [nil nil nil] [nil nil nil]])
+clj꞉n-tac-toe.components.board꞉> 
+[[nil nil nil] [nil nil nil] [nil nil nil]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: game.cljs
+[]
+clj꞉n-tac-toe.game꞉> 
+#n-tac-toe.game.Board{:rows [[nil nil nil] [nil nil nil] [nil nil nil]]}
+clj꞉n-tac-toe.components.board꞉> 
+:repl/exception!
+; 
+; Execution error (Error) at (<cljs repl>:1).
+; No protocol method IWithMeta.-with-meta defined for type number: 5
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[]
+clj꞉n-tac-toe.components.board꞉> 
+[[[[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]
+  [[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]
+  [[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]]
+ [[[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]
+  [[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]
+  [[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]]
+ [[[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]
+  [[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]
+  [[[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]
+   [[:td [:button "empty"]] [:td [:button "empty"]] [:td [:button "empty"]]]]]]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: views.cljs
+; ------ WARNING - :redef --------------------------------------------------------
+;  Resource: <eval>:390:1
+;  abs already refers to: cljs.core/abs being replaced by: garden.color/abs
+; --------------------------------------------------------------------------------
+; 
+nil
+clj꞉n-tac-toe.views꞉> 
+; Evaluating file: views.cljs
+; ------ WARNING - :redef --------------------------------------------------------
+;  Resource: <eval>:390:1
+;  abs already refers to: cljs.core/abs being replaced by: garden.color/abs
+; --------------------------------------------------------------------------------
+; 
+nil
+clj꞉n-tac-toe.views꞉> 
+; Evaluating file: views.cljs
+; ------ WARNING - :redef --------------------------------------------------------
+;  Resource: <eval>:390:1
+;  abs already refers to: cljs.core/abs being replaced by: garden.color/abs
+; --------------------------------------------------------------------------------
+; 
+nil
+clj꞉n-tac-toe.views꞉> 
+; Evaluating file: views.cljs
+; ------ WARNING - :redef --------------------------------------------------------
+;  Resource: <eval>:390:1
+;  abs already refers to: cljs.core/abs being replaced by: garden.color/abs
+; --------------------------------------------------------------------------------
+; 
+nil
+clj꞉n-tac-toe.views꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Evaluating file: board.cljs
+[]
+clj꞉n-tac-toe.components.board꞉> 
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Connecting using "undefined" project type.
+; You can make Calva auto-select this.
+;   - See https://calva.io/connect-sequences/
+; 
+; Aborting connect, error determining connect sequence.
+; Evaluating file: events.cljs
+[]
+clj꞉n-tac-toe.events꞉> 
+; Evaluating file: styles.cljs
+; ------ WARNING - :redef --------------------------------------------------------
+;  Resource: <eval>:390:1
+;  abs already refers to: cljs.core/abs being replaced by: garden.color/abs
+; --------------------------------------------------------------------------------
+; 
+nil
+clj꞉n-tac-toe.styles꞉> 
+; nREPL Connection was closed
+; Jacking in...
+; Connecting using "shadow-cljs" project type.
+; You can make Calva auto-select this.
+;   - See https://calva.io/connect-sequences/
+; 
+; Starting Jack-in Terminal: pushd /Users/dstancu/Workspace/dstancu/n-tac-toe ; npx shadow-cljs -d cider/cider-nrepl:0.28.5 watch :app ; popd
+; Using host:port localhost:8777 ...
+; Hooking up nREPL sessions ...
+; Connected session: clj
+; TIPS:
+;   - You can edit the contents here. Use it as a REPL if you like.
+;   - `alt+enter` evaluates the current top level form.
+;   - `ctrl+enter` evaluates the current form.
+;   - `alt+up` and `alt+down` traverse up and down the REPL command history
+;      when the cursor is after the last contents at the prompt
+;   - Clojure lines in stack traces are peekable and clickable.
+; Evaluating code from settings: 'calva.autoEvaluateCode.onConnect.clj'
+nil
+clj꞉shadow.user꞉> 
+clj꞉shadow.user꞉> 
+; Creating cljs repl session...
+; Connecting cljs repl: shadow-cljs...
+;   The Calva Connection Log might have more connection progress information.
+; Failed starting cljs repl for build: :app. Is the build running and connected?
+   See the Output channel "Calva Connection Log" for any hints on what went wrong.
+; Jack-in done.
+clj꞉shadow.user꞉> 
