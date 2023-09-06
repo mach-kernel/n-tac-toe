@@ -18,6 +18,11 @@
    (:game db)))
 
 (re-frame/reg-sub
+ ::win?
+ (fn [db _]
+   (:win? db)))
+
+(re-frame/reg-sub
  ::allowed
  (fn [{:keys [allowed game]}]
    (let [n (count (:rows game))]

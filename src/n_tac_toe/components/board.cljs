@@ -16,21 +16,38 @@
         {:keys [coord]} (meta board)
         [yb xb] coord
         allowed (re-frame/subscribe [::subs/allowed])
-        [ya xa] @allowed]
+        win? (re-frame/subscribe [::subs/win?])
+        [ya xa] @allowed
+        [won _] @win?]
     (->> rows
          (mapcat identity)
          (interleave coords)
          (partition-all 2)
          (mapv #(let [[[y x] cell] %
                       coord-meta {:coord [y x]}
+                      disabled (or 
+                                won
+                                (not (nil? cell))
+                                (not (and (= yb ya)
+                                             (= xa xb))))
                       cell (if (satisfies? TicTacToe cell)
                              (make-buttons-and-coords (with-meta cell coord-meta))
-                             [:td [:button
-                                   {:on-click (fn []
-                                                (re-frame/dispatch [::events/play \x yb xb y x]))
-                                    :disabled (not (and (= yb ya)
-                                                        (= xa xb)))}
-                                   (or cell "empty")]])]
+                             [:td
+                              [:button
+                               {:on-click (fn []
+                                            (re-frame/dispatch [::events/play \x yb xb y x]))
+                                :disabled disabled
+                                :class (str
+                                        "h-100 w-100 ttu "
+                                        (when-not disabled
+                                          "grow hover-bg-washed-green ")
+                                        (if disabled
+                                          "ba b--light-gray "
+                                          "ba b--green ")
+                                        (when (and (not-empty won)
+                                                   (= cell won))
+                                          "bg-washed-green "))}
+                               [:p {:class "b h-2 f4 lh-copy"} (or cell "empty")]]])]
                   (with-meta cell coord-meta)))
          (partition-all n)
          (mapv vec))))
@@ -50,7 +67,7 @@
                  ;; with entire tables
               [:td (->> cells
                         (map #(cons :tr %))
-                        (cons :table))]
+                        (concat [:table {:class "h-100 w-100"}]))]
               cells))
           (delazy
             [maybe-seq]
@@ -58,8 +75,9 @@
               (into [] maybe-seq)
               maybe-seq))]
         ;; cells of tables into a table with rows of table cells
-    (->> (make-buttons-and-coords board)
-         (walk/prewalk tableify)
-         (map #(cons :tr %))
-         (cons :table)
-         (walk/prewalk delazy))))
+    [:div {:class "h-100 w-80 center"} (->> (make-buttons-and-coords board)
+                               (walk/prewalk tableify)
+                               (map #(cons :tr %))
+
+                               (concat [:table {:class "h-100 w-100"}])
+                               (walk/prewalk delazy))]))

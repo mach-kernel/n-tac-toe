@@ -1,7 +1,6 @@
 (ns n-tac-toe.views
   (:require
    [re-frame.core :as re-frame]
-   [n-tac-toe.styles :as styles]
    [n-tac-toe.events :as events]
    [n-tac-toe.routes :as routes]
    [n-tac-toe.subs :as subs]
@@ -11,18 +10,24 @@
 ;; home
 
 (defn home-panel []
-  (let [name (re-frame/subscribe [::subs/name])
-        game (re-frame/subscribe [::subs/game])]
+  (let [game (re-frame/subscribe [::subs/game])
+        win? (re-frame/subscribe [::subs/win?])]
     [:div
-     [:h1
-      {:class (styles/level1)}
-      (str "Hello from " @name ". This is the Home Page.")]
-     [:button {:on-click #(re-frame/dispatch [::events/new-game])} "New game"]
+     {:class "sans-serif h-100 w-100 pa2"}
+     [:h1 {:class "f1 lh-title"} "n-tac-toe"]
+     (when-let [[player _] @win?]
+       [:h2 {:class (str 
+                     "f3 lh-copy "
+                     (if (= player \x)
+                       "green"
+                       "red"))} (str player " wins!")])
+     (when (or (not @game)
+               @win?)
+       [:button
+        {:on-click #(re-frame/dispatch [::events/new-game])}
+        "New game"])
      (when @game
-       [board @game])
-     [:div
-      [:a {:on-click #(re-frame/dispatch [::events/navigate :about])}
-       "go to About Page"]]]))
+       [board @game])]))
 
 (defmethod routes/panels :home-panel [] [home-panel])
 

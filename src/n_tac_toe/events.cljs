@@ -20,7 +20,14 @@
   [db _]
   (assoc db
          :game (game/new-game 3)
-         :turn \x)))
+         :turn \x
+         :win? nil)))
+
+(re-frame/reg-event-db
+ ::win?
+ (fn-traced
+  [{:keys [game] :as db}]
+  (assoc db :win? (game/win? game))))
 
 (re-frame/reg-event-fx
  ::play
@@ -34,19 +41,19 @@
                 :game (game/move game new-board yb xb)
                 :turn (get next-play c)
                 :allowed [y x])
-     :fx [(when (= turn \x)
+     :fx [[:dispatch [::win?]]
+          (when (= turn \x)
             [:dispatch [::cpu-play y x]])]})))
 
 (re-frame/reg-event-fx
  ::cpu-play
  (fn-traced 
   [{{:keys [game turn] :as db} :db} [_ yb xb]]
-  (if (= turn \o)
+  (when (= turn \o)
     (let [board (get-in game [:rows yb xb])
           [cpu-y cpu-x] (game/suggest-move board \o)]
       {:db db
-       :fx [[:dispatch [::play \o yb xb cpu-y cpu-x]]]})
-    {:db db})))
+       :fx [[:dispatch [::play \o yb xb cpu-y cpu-x]]]}))))
 
 (re-frame/reg-event-fx
  ::navigate

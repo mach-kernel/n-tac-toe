@@ -57,37 +57,44 @@
   (suggest-move
     [{:keys [rows] :as board} c]
     (let [n (count rows)
+          ;; order scores by highest for char
           scores (->> (score board)
                       (map #(select-keys % [c]))
                       (filter not-empty)
                       (sort-by (comp max vals) >))
           p-first-nil #(when (nil? %2)
                          %1)]
-      (loop [[s & rest] scores]
-        (if-let [move (match/match [(meta s)]
-                        [{:dir :fwd-diag}] (when-let [yx (->> (range n)
-                                                              (map get rows)
+      (or
+       (loop [[s & rest] scores]
+         (if-let [move (match/match [(meta s)]
+                         [{:dir :fwd-diag}] (when-let [yx (->> (range n)
+                                                               (map get rows)
+                                                               (keep-indexed p-first-nil)
+                                                               first)]
+                                              [yx yx])
+                         [{:dir :rev-diag}] (when-let [yx (->> (range n)
+                                                               (map get (reverse rows))
+                                                               (keep-indexed p-first-nil)
+                                                               first)]
+                                              [yx yx])
+                         [{:dir :col :n x}] (when-let [y (->> rows
+                                                              (map #(get % x))
                                                               (keep-indexed p-first-nil)
                                                               first)]
-                                             [yx yx])
-                        [{:dir :rev-diag}] (when-let [yx (->> (range n)
-                                                              (map get (reverse rows))
+                                              [y x])
+                         [{:dir :row :n y}] (when-let [x (->> (get rows y)
                                                               (keep-indexed p-first-nil)
                                                               first)]
-                                             [yx yx])
-                        [{:dir :col :n x}] (when-let [y (->> rows
-                                                             (map #(get % x))
-                                                             (keep-indexed p-first-nil)
-                                                             first)]
-                                             [y x])
-                        [{:dir :row :n y}] (when-let [x (->> (get rows y)
-                                                             (keep-indexed p-first-nil)
-                                                             first)]
-                                             [y x])
-                        :else [(rand-int n)
-                               (rand-int n)])]
-          move
-          (recur rest)))))
+                                              [y x])
+                         :else nil)]
+           move
+           (when (seq rest)
+             (recur rest))))
+       (loop [ry (rand-int n)
+              rx (rand-int n)]
+         (if (nil? (get-in rows [ry rx]))
+           [ry rx]
+           (recur (rand-int n) (rand-int n)))))))
   (score [{:keys [rows]}]
     (let [n (count rows)
           fwd-diag (with-meta
@@ -112,7 +119,9 @@
                                            :n %1})))]
       (->> (concat row-scores col-scores)
            (cons fwd-diag)
-           (cons rev-diag))))
+           (cons rev-diag)
+           (map #(dissoc % nil))
+           (filter not-empty))))
   (win? [{:keys [rows] :as board}]
     (->> (score board)
          (mapcat seq)
@@ -124,7 +133,11 @@
   (move [{:keys [rows]} ^Board board y x]
     (->MetaBoard (assoc-in rows [y x] board)))
   (win? [{:keys [rows]}]
-    (win? (->Board (map (partial map win?) rows))))
+    (->> rows
+         (mapcat identity)
+         (map win?)
+         (filter identity)
+         first))
   (score [{:keys [rows]}]
     (mapcat #(mapcat score %) rows)))
 
