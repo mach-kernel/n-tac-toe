@@ -59,7 +59,9 @@
     (let [n (count rows)
           ;; order scores by highest for char
           scores (->> (score board)
-                      (map #(select-keys % [c]))
+                      (mapcat #(if (< (count (keys %)) 2)
+                                 [(get % c)]
+                                 []))
                       (filter not-empty)
                       (sort-by (comp max vals) >))
           p-first-nil #(when (nil? %2)
